@@ -1,0 +1,32 @@
+package com.weidian.dao;
+
+import java.util.List;
+
+
+
+import org.apache.ibatis.annotations.Param;
+
+import com.weidian.pojo.Item;
+
+public interface ItemMapper {
+    int deleteByPrimaryKey(String itemid);
+
+    int insert(Item record);
+
+    int insertSelective(Item record);
+
+    Item selectByPrimaryKey(String itemid);
+
+    int updateByPrimaryKeySelective(Item record);
+
+    int updateByPrimaryKeyWithBLOBs(Item record);
+
+    int updateByPrimaryKey(Item record);
+    //分页查询item数据
+    List<Item> selectItemsByLimit(@Param("page") Integer page,@Param("pageSize")Integer pageSize);
+    
+    //根据findItemByItemID 查找商品id
+    Item findItemByItemID(Long itemid);
+    //查询item的总数量
+   int itemCount();
+}

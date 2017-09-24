@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weidian.dao.OrderMapper" >
+  <resultMap id="BaseResultMap" type="com.weidian.pojo.Order" >
+    <id column="orderID" property="orderid" jdbcType="VARCHAR" />
+    <result column="payment" property="payment" jdbcType="BIGINT" />
+    <result column="statu" property="statu" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="userID" property="userid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    orderID, payment, statu, create_time, userID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from orders
+    where orderID = #{orderid,jdbcType=VARCHAR}
+  </select>
+  <select id="findAllOrder" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from orders
+    where userID = #{userid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectUserBalance" resultType="com.weidian.pojo.User" parameterType="java.lang.String" >
+    SELECT DISTINCT users.`balance`,users.`userID`
+    FROM orders
+    INNER JOIN order_item ON orders.`orderID`=order_item.`orderID`
+    INNER JOIN item ON order_item.`itemID`=item.`itemID`
+    INNER JOIN shop ON item.`shopID`=shop.`shopID`
+    INNER JOIN users ON shop.`userID`=users.`userID`
+    WHERE orders.`orderID`= #{orderid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from orders
+    where orderID = #{orderid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="addOrder" parameterType="com.weidian.pojo.Order" >
+    insert into orders (orderID, payment, statu, 
+      create_time, userID)
+    values (#{orderid,jdbcType=VARCHAR}, #{payment,jdbcType=BIGINT}, #{statu,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{userid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.weidian.pojo.Order" >
+    insert into orders
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderid != null" >
+        orderID,
+      </if>
+      <if test="payment != null" >
+        payment,
+      </if>
+      <if test="statu != null" >
+        statu,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="userid != null" >
+        userID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderid != null" >
+        #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="payment != null" >
+        #{payment,jdbcType=BIGINT},
+      </if>
+      <if test="statu != null" >
+        #{statu,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.weidian.pojo.Order" >
+    update orders
+    <set >
+      <if test="payment != null" >
+        payment = #{payment,jdbcType=BIGINT},
+      </if>
+      <if test="statu != null" >
+        statu = #{statu,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null" >
+        userID = #{userid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where orderID = #{orderid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.weidian.pojo.Order" >
+    update orders
+    set payment = #{payment,jdbcType=BIGINT},
+      statu = #{statu,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      userID = #{userid,jdbcType=VARCHAR}
+    where orderID = #{orderid,jdbcType=VARCHAR}
+  </update>
+</mapper>

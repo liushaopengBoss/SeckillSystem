@@ -1,0 +1,84 @@
+package com.weidian.portal.controller;
+
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.weidian.bean.GoCart;
+import com.weidian.pojo.Orders;
+import com.weidian.pojo.User;
+import com.weidian.service.OrderService;
+
+
+@Controller
+@RequestMapping(value="/order")
+public class OrderController {
+	
+	@Autowired 
+	OrderService orderService;
+	
+	/**
+	 * 去付款
+	 * goPay
+	 */
+	@RequestMapping(value="/goPay")
+	public String goPay(HttpServletRequest request,Model model,HttpServletResponse response)throws IOException{
+		
+		System.out.println("进入支付方法---11111---》》》。");
+		//判断用户是否登录
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("user");
+		System.out.println("进入支付方法---222---》》》。");
+		//如果用户没有登录则进入登录界面
+//		if (user == null) {
+//			System.out.println("进入支付方法---3333---》》》。");
+//			response.getWriter().write("<script type='text/javascript'>alert('请先登录')</script>");
+//			return "index";
+////			response.setHeader("Refresh", "0;URL="+request.getContextPath()+"/login.jsp");
+//		}
+		//把购物车商品放入订单中
+		System.out.println("进入支付方法---444---》》》。");
+		GoCart gocart = (GoCart) session.getAttribute("gocart");
+		Orders orders = new Orders();
+		System.out.println("进入支付方法---5555---》》》。");
+		String ordersnum = System.nanoTime()+"";
+		System.out.println(ordersnum+"----------->>>>");
+		//setOrderid  订单号
+		orders.setOrderid(ordersnum);
+		System.out.println("------->>><<<<------");
+//		orders.setPayment((long) gocart.getTotalMoney());
+		System.out.println("------->>>^_^<<<<------");
+//		orders.set
+		//购物车------>>>订单项
+		System.out.println("进入支付方法---6666--》》》。");
+//		Map<Long, CartItem> items = gocart.getItems();
+//		System.out.println("for----11-------");
+//		for(Map.Entry<Long, CartItem> me:items.entrySet()){
+//			//订单
+//			System.out.println("for---22--------");
+//			OrderItem oitem = new OrderItem();
+//			System.out.println("for---33--------");
+//			oitem.setOrderid(UUID.randomUUID().toString());
+//			System.out.println("for----44-------");
+//			orders.getOrderItems().add(oitem);
+//			System.out.println("for----55-------");
+//		}
+//		System.out.println("进入支付方法---777---》》》。");
+		//生成订单
+		orderService.insert(orders);
+		
+		//转向付款页面：把订单号传过去 ordersnum
+		model.addAttribute("ordersnum", ordersnum);
+		return "order/pay";
+	}
+	
+	
+
+}

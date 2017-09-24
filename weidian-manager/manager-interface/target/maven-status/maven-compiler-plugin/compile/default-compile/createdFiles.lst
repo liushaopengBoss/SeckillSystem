@@ -1,0 +1,6 @@
+com\weidian\service\OrderService.class
+com\weidian\service\ShopService.class
+com\weidian\service\CartService.class
+com\weidian\service\UserService.class
+com\weidian\service\ItemService.class
+com\weidian\service\SecKillService.class

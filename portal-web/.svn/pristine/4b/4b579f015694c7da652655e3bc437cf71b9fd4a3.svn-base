@@ -1,0 +1,45 @@
+package com.weidian.bean;
+
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.weidian.pojo.Item;
+
+public class GoCart implements Serializable{
+	
+	//key:购物项对应的商品的ID，value：商品对应的购物项
+		private Map<Long, CartItem> items = new HashMap<Long, CartItem>();
+		private int totalNum;//总数量
+		private long totalMoney;//总金额：付款金额
+		public Map<Long, CartItem> getItems() {
+			return items;
+		}
+		public int getTotalNum() {
+			totalNum = 0;
+			for(Map.Entry<Long, CartItem> me:items.entrySet()){
+				totalNum+=me.getValue().getNum();
+			}
+			return totalNum;
+		}
+		public float getTotalMoney() {
+			totalMoney = 0;
+			for(Map.Entry<Long, CartItem> me:items.entrySet()){
+				totalMoney+=me.getValue().getPrice();
+			}
+			return totalMoney;
+		}
+		//向购物车的items中添加一个商品
+		public void addItem(Item item){
+			if(items.containsKey(item.getItemid())){
+				//items有这个商品对应的购物项了
+				CartItem cartItem = items.get(item.getItemid());
+				cartItem.setNum(cartItem.getNum()+1);
+			}else{
+				CartItem cartItem = new CartItem(item);
+				cartItem.setNum(1);
+				items.put(item.getItemid(), cartItem);
+			}
+		}
+
+}

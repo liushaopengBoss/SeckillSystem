@@ -1,0 +1,30 @@
+package com.weidian.service;
+
+import java.util.List;
+
+import com.weidian.pojo.Item;
+
+public interface ItemService {
+
+    int deleteByPrimaryKey(Integer itemid);
+
+    int insert(Item record);
+
+    int insertSelective(Item record);
+
+    Item selectByPrimaryKey(Integer itemid);
+
+    int updateByPrimaryKeySelective(Item record);
+
+    int updateByPrimaryKeyWithBLOBs(Item record);
+
+    int updateByPrimaryKey(Item record);
+    //初始化数据
+    int initData(int number);
+  //分页查询item数据
+    List<Item> selectItemsByLimit(Integer page);
+    //
+    Item findItemByItemID(Long itemid);
+    //查询item的数量
+    int itemCount();
+}

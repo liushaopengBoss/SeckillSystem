@@ -1,0 +1,71 @@
+package com.weidian.pojo;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+public class Orders implements Serializable{
+	
+    private String orderid;
+
+    private Long payment;
+
+    private Integer statu;
+
+    private Date createTime;
+
+    private String userid;
+    
+    //该订单对应的订单项
+    private List<OrderItem> OrderItems = new ArrayList<OrderItem>();
+    
+
+    public List<OrderItem> getOrderItems() {
+		return OrderItems;
+	}
+
+	public void setOrderItems(List<OrderItem> orderItems) {
+		OrderItems = orderItems;
+	}
+
+	public String getOrderid() {
+        return orderid;
+    }
+
+    public void setOrderid(String orderid) {
+        this.orderid = orderid == null ? null : orderid.trim();
+    }
+
+    public Long getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Long payment) {
+        this.payment = payment;
+    }
+
+    public Integer getStatu() {
+        return statu;
+    }
+
+    public void setStatu(Integer statu) {
+        this.statu = statu;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid == null ? null : userid.trim();
+    }
+}

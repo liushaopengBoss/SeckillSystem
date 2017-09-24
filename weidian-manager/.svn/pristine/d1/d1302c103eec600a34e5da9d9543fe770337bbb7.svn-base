@@ -1,0 +1,119 @@
+package com.weidian.service.impl;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.Transaction;
+
+import com.google.gson.Gson;
+import com.weidian.pojo.Item;
+import com.weidian.service.ItemService;
+import com.weidian.service.OrderService;
+import com.weidian.service.SecKillService;
+
+@Service
+public class SecKillServiceImpl implements SecKillService {
+
+	@Autowired
+	JedisPool pool;
+	@Autowired
+	OrderService orderService;
+	@Autowired
+	ItemService itemService;
+	
+	@Override
+	public Long refreshTime(Long itemid) throws ParseException {
+		
+//		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+//		Date date=sdf2.parse("2017-06-03 10:42:44");  
+//		Long times = date.getTime();
+
+		
+		
+		
+		Jedis redis = pool.getResource();
+		//redis.set("itemMS:"+itemid, times+"");
+		//redis获取商品秒杀时间
+		String startTimeStr = redis.get("itemMS:"+itemid);
+		//剩余时间
+		Long rt = null  ;
+		if(startTimeStr!=null){
+			//转换
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			String format = sdf.format(new Date());
+			//现在时间
+			Long nowTime = sdf.parse(format).getTime();
+			//秒杀时间
+			Long startTime = Long.parseLong(startTimeStr);
+			//剩余时间
+			rt = startTime-nowTime;
+		}
+		//关闭连接
+		redis.close();
+		
+		return rt;
+	}
+
+	@Override
+	public int findSurplusItemNum(Long itemid) {
+		Jedis redis = pool.getResource();
+		//获取秒杀商品的数量
+		String num = redis.get("itemMSNo:"+itemid);
+		//关闭连接
+		redis.close();
+		if(num!=null){
+			
+			return Integer.parseInt(num);
+		}
+		return -1;
+	}
+
+	@Override
+	public Item findSurplusItemInfo(Long itemid) {
+		Jedis redis = pool.getResource();
+		String itemJson = redis.hget("ItemMSInfo", itemid+"");
+		//关闭连接
+		redis.close();
+		//转化为item
+		Gson gson = new Gson();
+		Item item = gson.fromJson(itemJson, Item.class);
+		return item;
+	}
+
+	@Override
+	public boolean surplusItemPay(Long itemid) {
+		Jedis redis = pool.getResource();
+		//键加锁
+		redis.watch("itemMSNo:"+itemid);
+		//获取库存
+		int num = Integer.parseInt(redis.get("itemMSNo:"+itemid));
+		//事务
+		Transaction transaction = redis.multi();
+		transaction.set("itemMSNo:"+itemid,  String.valueOf(num - 1));
+		//执行
+		List<Object> result = transaction.exec();
+		
+		if (result == null || result.isEmpty()) {
+            //秒杀失败了
+			 System.out.println("Transaction error...");// 可能是watch-key被外部修改，或者是数据操作被驳回
+			 return false;
+        }else{
+        	System.out.println("秒杀成功");
+        	
+        	//写入mysql数据库
+        	//orderService.insert(record);
+        	
+        	return true;
+        }
+	
+		
+	}
+
+}

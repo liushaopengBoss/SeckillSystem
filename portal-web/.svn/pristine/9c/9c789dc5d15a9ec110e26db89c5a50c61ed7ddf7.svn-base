@@ -1,0 +1,186 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+    <!DOCTYPE html>
+<html>
+  <head>
+    <title>detail</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <link href="css/jquery-ui-themes.css" type="text/css" rel="stylesheet"/>
+    <link href="css/axure_rp_page.css" type="text/css" rel="stylesheet"/>
+    <link href="files/detail/styles.css" type="text/css" rel="stylesheet"/>
+  </head>
+  <body>
+    <div id="base" class="">
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u97" class="ax_default box_1">
+        <div id="u97_div" class=""></div>
+        <!-- Unnamed () -->
+        <div id="u98" class="text" style="display:none; visibility: hidden">
+          <p><span></span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Horizontal Line) -->
+      <div id="u99" class="ax_default line">
+        <img id="u99_img" class="img " src="images/detail/u99.png"/>
+        <!-- Unnamed () -->
+        <div id="u100" class="text" style="display:none; visibility: hidden">
+          <p><span></span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Group) -->
+      <div id="u101" class="ax_default" data-left="121" data-top="103" data-width="843" data-height="53">
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u102" class="ax_default box_3">
+          <div id="u102_div" class=""></div>
+          <!-- Unnamed () -->
+          <div id="u103" class="text" style="display:none; visibility: hidden">
+            <p><span></span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u104" class="ax_default label">
+          <div id="u104_div" class=""></div>
+          <!-- Unnamed () -->
+          <div id="u105" class="text">
+            <p><span>电商秒杀平台</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u106" class="ax_default label">
+          <div id="u106_div" class=""></div>
+          <!-- Unnamed () -->
+          <div id="u107" class="text">
+            <p><span>登录</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u108" class="ax_default label">
+          <div id="u108_div" class=""></div>
+          <!-- Unnamed () -->
+          <div id="u109" class="text">
+            <p><span>注册</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u110" class="ax_default label">
+        <div id="u110_div" class=""></div>
+        <!-- Unnamed () -->
+        <div id="u111" class="text">
+          <p><span>这是商品的标题</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u112" class="ax_default label">
+        <div id="u112_div" class=""></div>
+        <!-- Unnamed () -->
+        <div id="u113" class="text">
+          <p><span>价格：</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u114" class="ax_default label">
+        <div id="u114_div" class=""></div>
+        <!-- Unnamed () -->
+        <div id="u115" class="text">
+          <p><span>邮费：</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u116" class="ax_default label">
+        <div id="u116_div" class=""></div>
+        <!-- Unnamed () -->
+        <div id="u117" class="text">
+          <p><span>剩余：</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Horizontal Line) -->
+      <div id="u118" class="ax_default line">
+        <img id="u118_img" class="img " src="images/detail/u118.png"/>
+        <!-- Unnamed () -->
+        <div id="u119" class="text" style="display:none; visibility: hidden">
+          <p><span></span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (HTML Button) -->
+      <div id="u120" class="ax_default html_button">
+        <input id="u120_input" type="submit" value="加入购物车"/>
+      </div>
+
+      <!-- Unnamed (Image) -->
+      <div id="u121" class="ax_default image">
+        <img id="u121_img" class="img " src="images/detail/u121.png"/>
+        <!-- Unnamed () -->
+        <div id="u122" class="text" style="display:none; visibility: hidden">
+          <p><span></span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (HTML Button) -->
+      <div id="u123" class="ax_default html_button">
+        <input id="u123_input" type="submit" value="购买"/>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u124" class="ax_default label">
+        <div id="u124_div" class=""></div>
+        <!-- Unnamed () -->
+        <div id="u125" class="text">
+          <p><span>离开始还剩</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u126" class="ax_default paragraph">
+        <div id="u126_div" class=""></div>
+        <!-- Unnamed () -->
+        <div id="u127" class="text">
+          <p><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Image) -->
+      <div id="u128" class="ax_default image">
+        <img id="u128_img" class="img " src="images/detail/u128.png"/>
+        <!-- Unnamed () -->
+        <div id="u129" class="text" style="display:none; visibility: hidden">
+          <p><span></span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u130" class="ax_default link_button">
+        <div id="u130_div" class=""></div>
+        <!-- Unnamed () -->
+        <div id="u131" class="text">
+          <p><span>返回</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u132" class="ax_default box_3">
+        <div id="u132_div" class=""></div>
+        <!-- Unnamed () -->
+        <div id="u133" class="text">
+          <p><span>秒杀</span></p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+    

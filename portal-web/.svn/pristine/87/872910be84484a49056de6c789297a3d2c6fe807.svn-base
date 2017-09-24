@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+	<!-- 加载配置文件 -->
+	<context:property-placeholder location="classpath:conf/resource.properties" />
+	
+	<context:component-scan base-package="com.weidian.portal.controller" />
+	
+	<!-- 配置资源映射 -->
+	<mvc:resources location="/css/" mapping="/css/**"/>
+	<mvc:resources location="/js/" mapping="/js/**"/>
+	<mvc:resources location="/image/" mapping="/image/**"/>
+	<mvc:resources location="/files/" mapping="/files/**"/>
+	<mvc:resources location="/images/" mapping="/images/**"/>
+	
+	<!-- 解决响应字符流 乱码问题 -->
+	<bean id="utf8Charset" class="java.nio.charset.Charset"
+		factory-method="forName">
+		<constructor-arg value="UTF-8" />
+	</bean>
+		<!-- 开启注解模式 项目支撑注解 -->
+	<mvc:annotation-driven>
+		<!-- 响应处理字符串乱码问题 -->
+		<mvc:message-converters>
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<constructor-arg ref="utf8Charset" />
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+	
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	<!-- 文件上传解析器 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		
+		<property name="maxUploadSize" value="9999999999"></property>
+	</bean>
+	
+	
+</beans>

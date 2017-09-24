@@ -1,0 +1,116 @@
+package com.weidian.portal.controller;
+
+import java.text.ParseException;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.weidian.pojo.Item;
+import com.weidian.pojo.User;
+import com.weidian.service.SecKillService;
+
+/*
+ * 秒杀controller  
+ */
+@Controller
+@RequestMapping("/secKill")
+public class SecKillController {
+
+	@Autowired
+	SecKillService secKillService;
+	
+	/**
+	 * 获取秒杀剩余时间
+	 * @return
+	 */
+	@RequestMapping("/time")
+	@ResponseBody
+	private String freshTime(@RequestParam("itemid") Long itemid){
+		
+		Long time = null;
+		try {
+			time = secKillService.refreshTime(itemid);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return time+"";
+	}
+	/**
+	 * 查询是否能秒杀
+	 * @param itemid
+	 * @return
+	 */
+	@RequestMapping("/purchase")
+	private String SecKill(@RequestParam("itemid") Long itemid,Model model){
+		Long time = null;
+		try {
+			//1.秒杀时间是否可以
+			time = secKillService.refreshTime(itemid);
+			//if(time!=null && time<=0){
+				
+				//2.是否有剩余的秒杀商品
+				int num = secKillService.findSurplusItemNum(itemid);
+				if(num>0){
+					//获取秒杀商品的信息
+					Item ItemInfo = secKillService.findSurplusItemInfo(itemid);
+					
+					model.addAttribute("item", ItemInfo);
+					model.addAttribute("itemNum", num);
+					return "secKillpay";
+				}else{
+					model.addAttribute("itemMsg", "秒杀已经结束");
+					
+					return "seckillNll";
+				}
+				
+			//}else{
+				
+			//	return "/index.html";
+			//}
+			
+			
+			
+		} catch (ParseException e) {
+			
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
+	
+	
+	/**
+	 * 秒杀付款
+	 * @return
+	 */
+	@RequestMapping("/secKillPay")
+
+	private String secKillPay(@RequestParam("itemid") Long itemid,HttpSession session,Model model){
+			
+			User user = (User) session.getAttribute("user");
+	
+			//是否秒杀成功
+			boolean payStatus = secKillService.surplusItemPay(itemid,"12313");
+			//boolean payStatus = secKillService.surplusItemPay(itemid,user.getUserid());
+			String message="";
+			if(payStatus){
+				message = "秒杀成功！";
+			}else{
+				message = "秒杀失败！";
+			}
+			model.addAttribute("message", message);
+			
+			return "redirect:/success.html";
+
+		
+	}
+	
+}

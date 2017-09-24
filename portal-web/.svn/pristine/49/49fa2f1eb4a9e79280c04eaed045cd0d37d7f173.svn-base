@@ -1,0 +1,134 @@
+package com.weidian.portal.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.weidian.bean.GoCart;
+import com.weidian.pojo.Cart;
+import com.weidian.pojo.Item;
+import com.weidian.service.CartService;
+import com.weidian.service.ItemService;
+import com.weidian.service.OrderService;
+
+
+@Controller
+@RequestMapping(value="/cart")
+public class CartController {
+	
+	@Autowired
+	CartService cartService;
+	@Autowired
+	ItemService itemService;
+	@Autowired
+	OrderService orderService;
+	
+	
+	/*
+	 * 查询购物车所有信息
+	 */
+	@RequestMapping(value="/selectCartAll")
+	public String SelectCartAll(HttpServletRequest httpRequest,Model model)throws IOException{
+		List<Cart> cartAllList = cartService.selectAll();
+		double totalPrice = 0.00;
+		//查询总条数
+		int total = cartAllList.size();
+		for (int i = 0; i < total; i++) {
+			totalPrice = (double)(cartAllList.get(i).getPrice()*cartAllList.get(i).getQuantity()+cartAllList.get(i).getPostage())+totalPrice;
+			System.out.println("--------总价是totalPrice"+totalPrice);
+		}
+		int totalNum = 0;
+		for (int j = 0; j < total; j++) {
+			totalNum = cartAllList.get(j).getQuantity()+totalNum;
+		}
+		/*
+		for (Cart cart : cartAllList) {
+			System.out.println(cart.getItemid());
+			System.out.println("商品id是："+cart.getItemid()+"，商品价格："+cart.getPrice());
+			totalPrice = (double)(cart.getPrice()*cart.getQuantity()+cart.getPostage());
+			System.out.println("-----totalprice---"+totalPrice);
+			System.out.println("商品单价是"+cart.getPrice()+"购买数量是："+cart.getQuantity()+"商品邮费是："
+							+cart.getPostage()+",总计是："+(double)cart.getPrice()*cart.getQuantity()+cart.getPostage());
+			totalPrice +=totalPrice;
+		}*/
+		System.out.println("总价钱是:"+totalPrice);
+		String url = (String) httpRequest.getAttribute("url");
+		model.addAttribute("url",url);
+		// 把总件数和总价钱添加到参数中去
+		model.addAttribute("totalNum",totalNum);
+		model.addAttribute("totalPrice",totalPrice);
+		model.addAttribute("cartAllList", cartAllList);
+		return "cart/showAllCartInfo";
+	}
+	
+	/*
+	 * 通过商品id删除商品
+	 * deleteByItemId
+	 */
+	@RequestMapping(value="/deleteByItemId")
+ 	public String deleteByItemId(HttpServletRequest httpRequest,Model model,Long itemId)throws IOException{
+		
+		System.out.println("要删除的商品id是："+itemId);
+		cartService.deleteByItemId(itemId);
+		System.out.println("删除后执行查询语句--->>>>>>.----------");
+		List<Cart> cartAllList = cartService.selectAll();
+		double totalPrice = 0.00;
+		//查询总条数
+		int total = cartAllList.size();
+		for (int i = 0; i < total; i++) {
+			totalPrice = (double)(cartAllList.get(i).getPrice()*cartAllList.get(i).getQuantity()+cartAllList.get(i).getPostage())+totalPrice;
+			System.out.println("---<<<<<<-----总价是totalPrice"+totalPrice);
+		}
+		System.out.println("总价钱是:"+totalPrice);
+		String url = (String) httpRequest.getAttribute("url");
+		model.addAttribute("url",url);
+		model.addAttribute("cartAllList", cartAllList);
+		model.addAttribute("totalPrice",totalPrice);
+		return "cart/showAllCartInfo";
+	}
+	
+	/**
+	 * 添加商品进入购物车
+	 * addCartByItemID
+	 */
+	@RequestMapping(value="/addCartByItemID")
+ 	public String addCartByItemID( HttpServletRequest request,HttpServletResponse response
+ 						,Model model,Long itemId)throws IOException{
+		System.out.println("您从Item表中要加入购物车的商品ID是："+itemId);
+		Item item = itemService.findItemByItemID(itemId);
+		System.out.println("查询Item："+item);
+		//从HttpSession中先查，不在时创建一个新的购物车
+		HttpSession session = request.getSession();
+		 GoCart gocart = (GoCart) session.getAttribute("gocart");
+		 System.out.println("---gocart-----"+gocart);
+		 if (gocart == null) {
+			 System.out.println("------gocart  null  begin--------");
+			 gocart = new GoCart();
+			session.setAttribute("gocart", gocart);
+			System.out.println("------gocart  null  end--------");
+		}
+		 //把商品加入购物车中
+		 gocart.addItem(item);
+		 System.out.println(item+"---item-----");
+		String url = (String) request.getAttribute("url");
+		System.out.println(url+"url-----------");
+		model.addAttribute("url",url);
+//		response.getWriter().write("<script type='text/javascript'>alert('购-买-成-功')</script>");
+//		response.setHeader("Refresh", "0;URL="+request.getContextPath());
+		return "index";
+	}
+	
+	
+	
+	
+	
+
+}

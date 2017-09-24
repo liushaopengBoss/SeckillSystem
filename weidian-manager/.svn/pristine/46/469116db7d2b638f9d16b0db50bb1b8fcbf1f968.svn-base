@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weidian.dao.OrderItemMapper" >
+  <resultMap id="BaseResultMap" type="com.weidian.pojo.OrderItem" >
+    <id column="order_itemID" property="orderItemid" jdbcType="VARCHAR" />
+    <result column="orderID" property="orderid" jdbcType="VARCHAR" />
+    <result column="itemID" property="itemid" jdbcType="BIGINT" />
+    <result column="quantity" property="quantity" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    order_itemID, orderID, itemID, quantity
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.weidian.pojo.OrderItemExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from order_item
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from order_item
+    where order_itemID = #{orderItemid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from order_item
+    where order_itemID = #{orderItemid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.weidian.pojo.OrderItemExample" >
+    delete from order_item
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.weidian.pojo.OrderItem" >
+    insert into order_item (order_itemID, orderID, itemID, 
+      quantity)
+    values (#{orderItemid,jdbcType=VARCHAR}, #{orderid,jdbcType=VARCHAR}, #{itemid,jdbcType=BIGINT}, 
+      #{quantity,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.weidian.pojo.OrderItem" >
+    insert into order_item
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderItemid != null" >
+        order_itemID,
+      </if>
+      <if test="orderid != null" >
+        orderID,
+      </if>
+      <if test="itemid != null" >
+        itemID,
+      </if>
+      <if test="quantity != null" >
+        quantity,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderItemid != null" >
+        #{orderItemid,jdbcType=VARCHAR},
+      </if>
+      <if test="orderid != null" >
+        #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="itemid != null" >
+        #{itemid,jdbcType=BIGINT},
+      </if>
+      <if test="quantity != null" >
+        #{quantity,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.weidian.pojo.OrderItemExample" resultType="java.lang.Integer" >
+    select count(*) from order_item
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update order_item
+    <set >
+      <if test="record.orderItemid != null" >
+        order_itemID = #{record.orderItemid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderid != null" >
+        orderID = #{record.orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemid != null" >
+        itemID = #{record.itemid,jdbcType=BIGINT},
+      </if>
+      <if test="record.quantity != null" >
+        quantity = #{record.quantity,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update order_item
+    set order_itemID = #{record.orderItemid,jdbcType=VARCHAR},
+      orderID = #{record.orderid,jdbcType=VARCHAR},
+      itemID = #{record.itemid,jdbcType=BIGINT},
+      quantity = #{record.quantity,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.weidian.pojo.OrderItem" >
+    update order_item
+    <set >
+      <if test="orderid != null" >
+        orderID = #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="itemid != null" >
+        itemID = #{itemid,jdbcType=BIGINT},
+      </if>
+      <if test="quantity != null" >
+        quantity = #{quantity,jdbcType=INTEGER},
+      </if>
+    </set>
+    where order_itemID = #{orderItemid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.weidian.pojo.OrderItem" >
+    update order_item
+    set orderID = #{orderid,jdbcType=VARCHAR},
+      itemID = #{itemid,jdbcType=BIGINT},
+      quantity = #{quantity,jdbcType=INTEGER}
+    where order_itemID = #{orderItemid,jdbcType=VARCHAR}
+  </update>
+</mapper>

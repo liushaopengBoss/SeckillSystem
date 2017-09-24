@@ -1,0 +1,10 @@
+com\weidian\service\impl\UserServiceImpl.class
+com\weidian\service\impl\CartServiceImpl.class
+com\weidian\dao\UserMapper.class
+com\weidian\service\impl\ItemServiceImpl.class
+com\weidian\service\impl\OrderItemServiceImpl.class
+com\weidian\dao\ItemMapper.class
+com\weidian\dao\OrderItemMapper.class
+com\weidian\dao\CartMapper.class
+com\weidian\dao\OrdersMapper.class
+com\weidian\service\impl\OrderServiceImpl.class

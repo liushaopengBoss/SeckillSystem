@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weidian.dao.CartMapper" >
+  <resultMap id="BaseResultMap" type="com.weidian.pojo.Cart" >
+    <result column="userID" property="userid" jdbcType="VARCHAR" />
+    <result column="itemID" property="itemid" jdbcType="BIGINT" />
+    <result column="quantity" property="quantity" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="BIGINT" />
+    <result column="image" property="image" jdbcType="VARCHAR" />
+    <result column="postage" property="postage" jdbcType="BIGINT" />
+    <result column="item_name" property="itemName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    userID, itemID, quantity, price, image, postage, item_name
+  </sql>
+	  <!--  查询购物车所有信息-->
+  	<select id="selectCartAll" resultMap="BaseResultMap">
+  		select userID, itemID, quantity, price, image, postage, item_name
+  		from cart
+  	</select>
+    <!--  根据商品id删除信息-->
+    <select id="deleteByItemId" >
+    	delete from cart where itemID =#{itemid,jdbcType=BIGINT}
+    </select>
+    <!--  根据findCartByItemID 查询购物车信息-->
+  	<select id="findCartByItemID" resultMap="BaseResultMap">
+  		select userID, quantity, price, image, postage, item_name
+  		from cart
+  	    where itemID =#{itemid,jdbcType=BIGINT}
+  	</select>
+  	<select id="selectCartByUserID" resultMap="BaseResultMap" parameterType="java.lang.String">
+  		select userID, itemID, quantity, price, image, postage, item_name
+  		from cart where userID=#{userid}
+  	</select>
+  
+  
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.weidian.pojo.CartExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cart
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.weidian.pojo.CartExample" >
+    delete from cart
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.weidian.pojo.Cart" >
+    insert into cart (userID, itemID, quantity, 
+      price, image, postage, 
+      item_name)
+    values (#{userid,jdbcType=VARCHAR}, #{itemid,jdbcType=BIGINT}, #{quantity,jdbcType=INTEGER}, 
+      #{price,jdbcType=BIGINT}, #{image,jdbcType=VARCHAR}, #{postage,jdbcType=BIGINT}, 
+      #{itemName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.weidian.pojo.Cart" >
+    insert into cart
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        userID,
+      </if>
+      <if test="itemid != null" >
+        itemID,
+      </if>
+      <if test="quantity != null" >
+        quantity,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="image != null" >
+        image,
+      </if>
+      <if test="postage != null" >
+        postage,
+      </if>
+      <if test="itemName != null" >
+        item_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="itemid != null" >
+        #{itemid,jdbcType=BIGINT},
+      </if>
+      <if test="quantity != null" >
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=BIGINT},
+      </if>
+      <if test="image != null" >
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="postage != null" >
+        #{postage,jdbcType=BIGINT},
+      </if>
+      <if test="itemName != null" >
+        #{itemName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <insert id="insertItemtoCart"  parameterType="com.weidian.pojo.Cart" >
+  insert into cart
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        userID,
+      </if>
+      <if test="itemid != null" >
+        itemID,
+      </if>
+      <if test="quantity != null" >
+        quantity,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="image != null" >
+        image,
+      </if>
+      <if test="postage != null" >
+        postage,
+      </if>
+      <if test="itemName != null" >
+        item_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="itemid != null" >
+        #{itemid,jdbcType=BIGINT},
+      </if>
+      <if test="quantity != null" >
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=BIGINT},
+      </if>
+      <if test="image != null" >
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="postage != null" >
+        #{postage,jdbcType=BIGINT},
+      </if>
+      <if test="itemName != null" >
+        #{itemName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.weidian.pojo.CartExample" resultType="java.lang.Integer" >
+    select count(*) from cart
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update cart
+    <set >
+      <if test="record.userid != null" >
+        userID = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemid != null" >
+        itemID = #{record.itemid,jdbcType=BIGINT},
+      </if>
+      <if test="record.quantity != null" >
+        quantity = #{record.quantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=BIGINT},
+      </if>
+      <if test="record.image != null" >
+        image = #{record.image,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postage != null" >
+        postage = #{record.postage,jdbcType=BIGINT},
+      </if>
+      <if test="record.itemName != null" >
+        item_name = #{record.itemName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update cart
+    set userID = #{record.userid,jdbcType=VARCHAR},
+      itemID = #{record.itemid,jdbcType=BIGINT},
+      quantity = #{record.quantity,jdbcType=INTEGER},
+      price = #{record.price,jdbcType=BIGINT},
+      image = #{record.image,jdbcType=VARCHAR},
+      postage = #{record.postage,jdbcType=BIGINT},
+      item_name = #{record.itemName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <delete id="deleteCartByItemid" >
+  	delete from cart where itemid = #{itemid} 
+  	and 
+    userID =#{userid}
+  </delete>
+
+</mapper>

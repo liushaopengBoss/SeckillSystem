@@ -1,0 +1,54 @@
+package com.weidian.service.impl;
+
+import java.util.List;
+
+import com.weidian.pojo.OrderItem;
+import com.weidian.pojo.OrderItemExample;
+import com.weidian.service.OrderItemService;
+
+public class OrderItemServiceImpl implements OrderItemService{
+
+	@Override
+	public int deleteByPrimaryKey(String orderItemid) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int insert(OrderItem record) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int insertSelective(OrderItem record) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<OrderItem> selectByExample(OrderItemExample example) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public OrderItem selectByPrimaryKey(String orderItemid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public int updateByPrimaryKeySelective(OrderItem record) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int updateByPrimaryKey(OrderItem record) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}

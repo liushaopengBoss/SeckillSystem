@@ -1,0 +1,27 @@
+package com.weidian.service;
+
+import java.util.List;
+
+
+import com.weidian.pojo.OrderItem;
+import com.weidian.pojo.OrderItemExample;
+
+public interface OrderItemService {
+
+
+
+	int deleteByPrimaryKey(String orderItemid);
+
+	int insert(OrderItem record);
+
+	int insertSelective(OrderItem record);
+
+	List<OrderItem> selectByExample(OrderItemExample example);
+
+	OrderItem selectByPrimaryKey(String orderItemid);
+
+	int updateByPrimaryKeySelective(OrderItem record);
+
+	int updateByPrimaryKey(OrderItem record);
+
+}

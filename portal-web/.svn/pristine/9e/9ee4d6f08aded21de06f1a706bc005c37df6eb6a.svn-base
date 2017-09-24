@@ -1,0 +1,269 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>微店</title>
+</head>
+<style type="text/css">
+a{text-decoration:none}
+	.header{
+		width: 725px;
+			height: 60px;
+			border: 1px solid orangered;
+			margin: 0 auto;
+			background:#C8C8C8;
+	}
+	.header .title{
+	position:absolute;
+	top: 0px;
+	}
+	
+	.header .rightlable{
+		display:inline;
+		float:right;
+	}
+	.header .rightlable div{
+		font-size:20px;
+		top:0px;
+		display:inline;
+	}
+	
+	.shop{
+			width: 725px;
+			height: 60px;
+			border: 1px solid orangered;
+			margin: 0 auto;
+
+	}
+	.shop .shopname{
+	position:absolute;
+	top: 70px;
+	}
+	.shop .button{
+	float:right;
+	}
+	
+    .out{
+        width: 725px;
+        height: 600px;
+       
+        margin: 0 auto;
+
+    }
+    .out .list{
+        width: 700px;
+        height: 210px;
+        border: 1px solid;
+        margin: 5px 10px 2px 10px;
+    }
+    .imgs{
+        width: 170px;
+        height: 170px;
+        margin: 10px 0px 10px 10px;
+        background-color: greenyellow;
+        float: left;
+    }
+    .out .leftlab{
+        width: 300px;
+        height: 170px;
+        margin: 10px 0px 10px 10px;
+        float: left;
+        /*border: 1px solid;*/
+        position: relative;
+    }
+    .out .leftlab div{
+        width: 300px;
+        height: 40px;
+        margin: 5px 0px 0px 10px;
+    }
+    .out .rightlab{
+        float: right;
+        width: 180px;
+        height: 170px;
+        margin: 10px 0px 10px 10px;
+    }
+    .out .rightlab div{
+        width: 180px;
+        height: 40px;
+        margin: 5px 0px 0px 10px;
+    }
+     .rightlab a{
+        text-decoration: none;
+    }
+.leftlab button{
+    position: absolute;
+    width: 60px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    top: 0px;
+    right: 90px;
+    background-color: deepskyblue;
+    border: none;
+    border-radius: 10px;
+    color: white;
+
+}
+.footer{
+	width: 725px;
+			height: 60px;
+
+}
+.footer button{
+		 margin: 10px 0px 0px 10px;
+		float:right;
+	
+}
+
+body{
+	
+	font-size: 12px;
+	text-align: center;
+	
+}
+table{
+	font-size: 12px;
+	
+}
+.odd{
+	background-color: #c3f3c3;
+}
+.even{
+	background-color: #f3c3f3;
+}
+</style>
+<body>
+<div class="header">
+	<h1 class="title">电商秒杀系统<h1>
+		
+	    <div class="rightlable">
+           <!-- 登录-->
+		   <div><a href="#">我的店铺</a></div>
+			<div><a href="#">购物车</a></div>
+			<div><a href="#">我的订单</a></div>
+			<div><a href="#">欢迎XXX登录</a></div>
+        </div>
+</div >
+<!--外层div-->
+
+<div class="out">
+    <!--如果你是jsp页面的话直接通过foreach循环输出即可-->
+	    <div >
+	    	 <h1>您的购物车所有商品</h1>
+	    </div>
+  		<!-- 遍历购物车所有信息 -->
+		<table border="1" width="90%">
+			<thead>
+				<tr>
+					<th>用户ID</th>
+					<th>商品ID</th>
+					<th>购买件数</th>
+					<th>单价</th>
+					<th>商品图片</th>
+					<th>商品邮费</th>
+					<th>商品名称</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<!-- 
+			sessionScope.cart.items 
+			 <c:if test="${empty sessionScope.cart.items}">
+    	您还没有购买任何商品	
+   		 </c:if>
+			
+			 -->
+			<tbody>
+				<c:choose>
+					<c:when test="${ !empty sessionScope.gocart.items  ">
+						<c:forEach items="${cartAllList}" var="cart" varStatus="vs">
+							<tr class="${vs.index%2==0?'odd':'even'}">
+								<td>${cart.userid}</td>
+								<td>${cart.itemid}</td>
+								<td><input size="3" value="${cart.quantity}" onchange="changeNum(this,${cart.quantity},'${me.key}'") ></td>
+								<td>${cart.price}</td>
+								<!--  
+									<img src="${pageContext.request.contextPath}/images/${b.path}/${b.newImageName}"/>
+								-->
+								<td >
+								<img width="60px" height="60px" src="https://g-search1.alicdn.com/img/bao/uploaded/i4/imgextra/i4/1258106044788429247/TB2OoeaqbFlpuFjy0FgXXbRBVXa_!!0-saturn_solar.jpg_180x180.jpg_.webp"
+								>
+								</td>
+								<td>${cart.postage}</td>
+								<td>${cart.itemName}</td>
+								<!--  
+									<td><a href="javascript:delOneItem('${cart.itemid}')">删除</a></td>
+								-->
+								<td><a href="deleteByItemId.html?itemId=${cart.itemid }">删除</a></td>
+								
+							</tr>
+							
+						</c:forEach>
+						<td colspan="6" align="right"  >
+								总共${totalNum }件&nbsp;&nbsp;&nbsp;&nbsp;
+							总记${totalPrice}元&nbsp;&nbsp;&nbsp;&nbsp;
+							<th><a href="<%=basePath%>order/goPay.html">去结账</a></th>
+						</td>
+					</c:when>
+					<c:otherwise>
+						<tr>
+							<td colspan="8">
+								<div style="color: red;padding-left:200px;">抱歉,您的购物车空空如也！</div>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="8">
+								<div style="color: green;padding-left:200px;">
+									<a href="${pageContext.request.contextPath}/index.html">亲,赶紧去购物吧^_^</a>
+								</div>
+							</td>
+						</tr>
+					</c:otherwise>
+				</c:choose> 
+			</tbody>
+		</table>
+    <!--foreach 结束-->
+    
+    <script type="text/javascript">
+    	//输入验证：客户端验证（js）；服务器段验证（保证安全）；开发中：客户端+服务器段
+    
+    	function delOneItem(itemid){
+    		var sure = window.confirm("确定要删除该项吗？"); 
+    		if(sure){
+    			window.location.href="${pageContext.request.contextPath}/cart/deleteByItemId.html?itemId=${cart.itemid }"+${cart.itemid };
+    		}
+    	}
+    	function changeNum(inputObj,oldNum,itemid){
+    		var newnum = inputObj.value;
+    		
+    		if(!/^[1-9][0-9]*$/.test(newnum)){
+    			alert("请输入正确的数值");
+    			inputObj.value = oldNum;
+    			return;
+    		}
+    		
+    		var sure = window.confirm("确定要修改数量吗");
+    		if(sure){
+    			window.location.href="${pageContext.request.contextPath}/servlet/ControllerServlet?op=changeCartItemNum&bookId="+bookId+"&newnum="+newnum;
+    		}else{
+    			inputObj.value = oldNum;
+    		}
+    	}
+    </script>
+
+</div>
+</body>
+	<!--
+	window.location.href="${pageContext.request.contextPath}/servlet/ControllerServlet?op=delOneFormCart&bookId="+bookId;
+	<a href="deleteByItemId.html?itemId=${cart.itemid }">
+	 -->
+
+</html>

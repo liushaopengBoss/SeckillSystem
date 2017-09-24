@@ -1,0 +1,11 @@
+com\weidian\pojo\Result.class
+com\weidian\pojo\CartExample.class
+com\weidian\pojo\Shop.class
+com\weidian\pojo\OrderItem.class
+com\weidian\pojo\Cart.class
+com\weidian\pojo\CartExample$Criterion.class
+com\weidian\pojo\Item.class
+com\weidian\pojo\CartExample$Criteria.class
+com\weidian\pojo\User.class
+com\weidian\pojo\CartExample$GeneratedCriteria.class
+com\weidian\pojo\Order.class

@@ -1,0 +1,45 @@
+package com.weidian.pojo;
+
+import java.io.Serializable;
+
+public class OrderItem implements Serializable{
+    private String orderItemid;
+
+    private String orderid;
+
+    private Long itemid;
+
+    private Integer quantity;
+
+    public String getOrderItemid() {
+        return orderItemid;
+    }
+
+    public void setOrderItemid(String orderItemid) {
+        this.orderItemid = orderItemid == null ? null : orderItemid.trim();
+    }
+
+    public String getOrderid() {
+        return orderid;
+    }
+
+    public void setOrderid(String orderid) {
+        this.orderid = orderid == null ? null : orderid.trim();
+    }
+
+    public Long getItemid() {
+        return itemid;
+    }
+
+    public void setItemid(Long itemid) {
+        this.itemid = itemid;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+}

@@ -1,0 +1,68 @@
+package com.weidian.service.impl;
+
+import java.util.Date;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+
+import com.weidian.dao.ItemMapper;
+import com.weidian.dao.UserMapper;
+import com.weidian.pojo.Item;
+import com.weidian.pojo.User;
+import com.weidian.service.UserService;
+
+@Service
+public class UserServiceImpl implements UserService {
+
+	@Autowired
+	UserMapper usermapper;
+	
+	@Autowired
+	ItemMapper itemmapper;
+	
+	@Autowired
+	JedisPool pool;
+	
+	@Override
+	public int deleteByPrimaryKey(Long id) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int insert(User record) {
+		
+	
+		return 0;
+	}
+
+	@Override
+	public int insertSelective(User record) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public User selectByPrimaryKey(Long id) {
+
+		return usermapper.selectByPrimaryKey(id+"");
+		
+	}
+
+	@Override
+	public int updateByPrimaryKeySelective(User record) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int updateByPrimaryKey(User record) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}

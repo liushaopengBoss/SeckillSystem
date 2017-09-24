@@ -1,0 +1,33 @@
+package com.weidian.service;
+
+import java.util.List;
+import com.weidian.pojo.Cart;
+import com.weidian.pojo.CartExample;
+
+
+public interface CartService {
+
+	int countByExample(CartExample example);
+
+	int deleteByExample(CartExample example);
+
+	//删除商品
+	String deleteByItemId(Long itemid);
+	
+	int insert(Cart record);
+
+	int insertSelective(Cart record);
+
+	List<Cart> selectByExample(CartExample example);
+
+//	int updateByExampleSelective(@Param("record") Cart record, @Param("example") CartExample example);
+
+//	int updateByExample(@Param("record") Cart record, @Param("example") CartExample example);
+
+	List<Cart> selectAll();
+	
+	//根据findCartByItemID 查询购物车信息
+    String findCartByItemID(Long itemid);
+
+    
+}

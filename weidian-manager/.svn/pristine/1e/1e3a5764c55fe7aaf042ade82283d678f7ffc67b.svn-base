@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weidian.dao.ItemMapper" >
+  <resultMap id="BaseResultMap" type="com.weidian.pojo.Item" >
+    <id column="itemID" property="itemid" jdbcType="INTEGER" />
+    <result column="item_name" property="itemName" jdbcType="VARCHAR" />
+    <result column="quantity" property="quantity" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="BIGINT" />
+    <result column="image" property="image" jdbcType="VARCHAR" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="postage" property="postage" jdbcType="BIGINT" />
+    <result column="shopID" property="shopID" jdbcType="INTEGER" />
+    <result column="seckill" property="seckill" jdbcType="TIMESTAMP" />
+    <result column="shop_name" property="shopName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.weidian.pojo.Item" extends="BaseResultMap" >
+    <result column="comments" property="comments" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    itemID, item_name, quantity, price, image, created, postage, shopID, seckill
+  </sql>
+  <sql id="Blob_Column_List" >
+    comments
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from item
+    where itemID = #{itemid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from item
+    where itemID = #{itemid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.weidian.pojo.Item" >
+    insert into item (itemID, item_name, quantity, 
+      price, image, created, 
+      postage, shopID, seckill, 
+      comments)
+    values (#{itemid,jdbcType=VARCHAR}, #{itemName,jdbcType=VARCHAR}, #{quantity,jdbcType=INTEGER}, 
+      #{price,jdbcType=BIGINT}, #{image,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP}, 
+      #{postage,jdbcType=BIGINT}, #{shopid,jdbcType=INTEGER}, #{seckill,jdbcType=TIMESTAMP}, 
+      #{comments,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.weidian.pojo.Item" >
+    insert into item
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="itemid != null" >
+        itemID,
+      </if>
+      <if test="itemName != null" >
+        item_name,
+      </if>
+      <if test="quantity != null" >
+        quantity,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="image != null" >
+        image,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="postage != null" >
+        postage,
+      </if>
+      <if test="shopid != null" >
+        shopID,
+      </if>
+      <if test="seckill != null" >
+        seckill,
+      </if>
+      <if test="comments != null" >
+        comments,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="itemid != null" >
+        #{itemid,jdbcType=VARCHAR},
+      </if>
+      <if test="itemName != null" >
+        #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null" >
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=BIGINT},
+      </if>
+      <if test="image != null" >
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="postage != null" >
+        #{postage,jdbcType=BIGINT},
+      </if>
+      <if test="shopid != null" >
+        #{shopid,jdbcType=INTEGER},
+      </if>
+      <if test="seckill != null" >
+        #{seckill,jdbcType=TIMESTAMP},
+      </if>
+      <if test="comments != null" >
+        #{comments,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.weidian.pojo.Item" >
+    update item
+    <set >
+      <if test="itemName != null" >
+        item_name = #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null" >
+        quantity = #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=BIGINT},
+      </if>
+      <if test="image != null" >
+        image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="postage != null" >
+        postage = #{postage,jdbcType=BIGINT},
+      </if>
+      <if test="shopid != null" >
+        shopID = #{shopid,jdbcType=INTEGER},
+      </if>
+      <if test="seckill != null" >
+        seckill = #{seckill,jdbcType=TIMESTAMP},
+      </if>
+      <if test="comments != null" >
+        comments = #{comments,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where itemID = #{itemid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.weidian.pojo.Item" >
+    update item
+    set item_name = #{itemName,jdbcType=VARCHAR},
+      quantity = #{quantity,jdbcType=INTEGER},
+      price = #{price,jdbcType=BIGINT},
+      image = #{image,jdbcType=VARCHAR},
+      created = #{created,jdbcType=TIMESTAMP},
+      postage = #{postage,jdbcType=BIGINT},
+      shopID = #{shopid,jdbcType=INTEGER},
+      seckill = #{seckill,jdbcType=TIMESTAMP},
+      comments = #{comments,jdbcType=LONGVARCHAR}
+    where itemID = #{itemid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.weidian.pojo.Item" >
+    update item
+    set item_name = #{itemName,jdbcType=VARCHAR},
+      quantity = #{quantity,jdbcType=INTEGER},
+      price = #{price,jdbcType=BIGINT},
+      image = #{image,jdbcType=VARCHAR},
+      created = #{created,jdbcType=TIMESTAMP},
+      postage = #{postage,jdbcType=BIGINT},
+      shopID = #{shopid,jdbcType=INTEGER},
+      seckill = #{seckill,jdbcType=TIMESTAMP}
+    where itemID = #{itemid,jdbcType=VARCHAR}
+  </update>
+    <select id="selectItemsByLimit" resultMap="ResultMapWithBLOBs" >
+    select 
+   itemID, item_name, quantity, price, image, postage, seckill
+    from item
+    where seckill IS NULL
+    LIMIT #{page}, #{pageSize};
+  </select>
+  
+   <!--根据 findItemByItemID查找商品 comments  -->
+  <select id="findItemByItemID" resultMap="BaseResultMap">
+  	 select
+  	 item_name, quantity, price, image, created, postage, shopID, comments,seckill, shop_name
+  	 from
+  	 item
+  	 where itemID =#{itemid,jdbcType=BIGINT}
+  </select>
+  
+    
+   <!--根据 findItemByItemID查找商品 comments  -->
+  <select id="itemCount" resultType="java.lang.Integer">
+  	 select
+  	 COUNT(itemID)
+  	 from
+  	 item
+  </select>
+  
+</mapper>

@@ -1,0 +1,135 @@
+package com.weidian.service.impl;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+
+import com.weidian.dao.ItemMapper;
+import com.weidian.pojo.Item;
+import com.weidian.service.ItemService;
+
+@Service
+public class ItemServiceImpl implements ItemService{
+
+	@Autowired
+	ItemMapper itemMapper;
+	
+	@Autowired
+	JedisPool pool;
+	
+	@Override
+	public int deleteByPrimaryKey(Integer itemid) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int insert(Item record) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int insertSelective(Item record) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Item selectByPrimaryKey(Integer itemid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int updateByPrimaryKeySelective(Item record) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int updateByPrimaryKeyWithBLOBs(Item record) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int updateByPrimaryKey(Item record) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int initData(int number) {
+		long millis;
+	
+		for(int i=number;i<number+1000;i++){
+			try{
+			//取当前时间的长整形值包含毫秒
+			 millis = System.currentTimeMillis();
+			//long millis = System.nanoTime();
+			//加上两位随机数
+			Random random = new Random();
+			int end2 = random.nextInt(99);
+			//如果不足两位前面补0
+			String str =  String.format("%02d", end2);
+			long id = millis+ new Long((millis+"")+str);
+			
+			Item item = new Item();
+			item.setShopid(123456);
+			item.setComments("我是ipad "+i+1);
+			item.setImage("https://g-search1.alicdn.com/img/bao/uploaded/i4/imgextra/i4/1258106044788429247/TB2OoeaqbFlpuFjy0FgXXbRBVXa_!!0-saturn_solar.jpg_180x180.jpg_.webp");
+			item.setItemid(id);
+			item.setItemName("ipad pro"+i);
+			item.setPostage(10L);
+			item.setPrice(123456L);
+			item.setQuantity(100);
+			item.setCreated(new Date());
+			itemMapper.insertSelective(item);
+			}catch(Exception e){
+				System.out.println("pppp");
+			}
+		}
+		return 0;
+	}
+
+	@Override
+	public List<Item> selectItemsByLimit(Integer page) {
+		
+		Jedis redis = pool.getResource();
+		redis.set("itemNum","3100001");
+		redis.close();
+		
+		return itemMapper.selectItemsByLimit(page*30, 30);
+		
+	}
+
+	@Override
+	public Item findItemByItemID(Long itemid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int itemCount() {
+		int itemCount;
+		Jedis redis = pool.getResource();
+		String num = redis.get("itemNum");
+		redis.close();
+		if(num!=null){
+			itemCount = Integer.parseInt(num);
+		}else{
+			itemCount = itemMapper.itemCount();
+		}
+		
+		return itemCount;
+	}
+
+}

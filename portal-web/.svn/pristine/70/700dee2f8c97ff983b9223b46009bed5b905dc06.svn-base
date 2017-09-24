@@ -1,0 +1,191 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+    <!DOCTYPE html>
+<html>
+  <head>
+    <title>regist</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <link href="css/jquery-ui-themes.css" type="text/css" rel="stylesheet"/>
+    <link href="css/axure_rp_page.css" type="text/css" rel="stylesheet"/>
+    <link href="files/regist/styles.css" type="text/css" rel="stylesheet"/>
+
+  </head>
+  <body>
+    <div id="base" class="">
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u37" class="ax_default box_1">
+        <div id="u37_div" class=""></div>
+        <!-- Unnamed () -->
+        <div id="u38" class="text">
+          <p><span>&#149; </span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Horizontal Line) -->
+      <div id="u39" class="ax_default line">
+        <img id="u39_img" class="img " src="images/regist/u39.png"/>
+        <!-- Unnamed () -->
+        <div id="u40" class="text" style="display:none; visibility: hidden">
+          <p><span></span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Group) -->
+      <div id="u41" class="ax_default" data-left="197" data-top="100" data-width="843" data-height="53">
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u42" class="ax_default box_3">
+          <div id="u42_div" class=""></div>
+          <!-- Unnamed () -->
+          <div id="u43" class="text" style="display:none; visibility: hidden">
+            <p><span></span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u44" class="ax_default label">
+          <div id="u44_div" class=""></div>
+          <!-- Unnamed () -->
+          <div id="u45" class="text">
+            <p><span>电商秒杀平台</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u46" class="ax_default label">
+          <div id="u46_div" class=""></div>
+          <!-- Unnamed () -->
+          <div id="u47" class="text">
+            <p><span>登录</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (Rectangle) -->
+        <div id="u48" class="ax_default label">
+          <div id="u48_div" class=""></div>
+          <!-- Unnamed () -->
+          <div id="u49" class="text">
+            <p><span>注册</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u50" class="ax_default label">
+        <div id="u50_div" class=""></div>
+        <!-- Unnamed () -->
+        <div id="u51" class="text">
+          <p><span>会员注册</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u52" class="ax_default label">
+        <div id="u52_div" class=""></div>
+        <!-- Unnamed () -->
+        <div id="u53" class="text">
+          <p><span>*用户名:</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u54" class="ax_default label">
+        <div id="u54_div" class=""></div>
+        <!-- Unnamed () -->
+        <div id="u55" class="text">
+          <p><span>*密码:</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u56" class="ax_default label">
+        <div id="u56_div" class=""></div>
+        <!-- Unnamed () -->
+        <div id="u57" class="text">
+          <p><span>*再次输入密码:</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u58" class="ax_default label">
+        <div id="u58_div" class=""></div>
+        <!-- Unnamed () -->
+        <div id="u59" class="text">
+          <p><span>我是卖家:</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Rectangle) -->
+      <div id="u60" class="ax_default label">
+        <div id="u60_div" class=""></div>
+        <!-- Unnamed () -->
+        <div id="u61" class="text">
+          <p><span>店铺名称:</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Horizontal Line) -->
+      <div id="u62" class="ax_default line">
+        <img id="u62_img" class="img " src="images/regist/u39.png"/>
+        <!-- Unnamed () -->
+        <div id="u63" class="text" style="display:none; visibility: hidden">
+          <p><span></span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Horizontal Line) -->
+      <div id="u64" class="ax_default line">
+        <img id="u64_img" class="img " src="images/regist/u39.png"/>
+        <!-- Unnamed () -->
+        <div id="u65" class="text" style="display:none; visibility: hidden">
+          <p><span></span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (HTML Button) -->
+      <div id="u66" class="ax_default html_button">
+        <input id="u66_input" type="submit" value="回到首页"/>
+      </div>
+
+      <!-- Unnamed (HTML Button) -->
+      <div id="u67" class="ax_default html_button">
+        <input id="u67_input" type="submit" value="完成注册"/>
+      </div>
+
+      <!-- username (Text Field) -->
+      <div id="u68" class="ax_default text_field" data-label="username">
+        <input id="u68_input" type="text" value="" placeholder="4-20个字母和数字的组合"/>
+      </div>
+
+      <!-- password (Text Field) -->
+      <div id="u69" class="ax_default text_field" data-label="password">
+        <input id="u69_input" type="text" value="" placeholder="最长128个字符"/>
+      </div>
+
+      <!-- rewardpwd (Text Field) -->
+      <div id="u70" class="ax_default text_field" data-label="rewardpwd">
+        <input id="u70_input" type="text" value="" placeholder="最长128个字符"/>
+      </div>
+
+      <!-- shopname (Text Field) -->
+      <div id="u71" class="ax_default text_field" data-label="shopname">
+        <input id="u71_input" type="text" value="" placeholder="2-20个汉字"/>
+      </div>
+
+      <!-- Unnamed (Checkbox) -->
+      <div id="u72" class="ax_default checkbox">
+        <label for="u72_input">
+          <!-- Unnamed () -->
+          <div id="u73" class="text">
+            <p><span>是</span></p>
+          </div>
+        </label>
+        <input id="u72_input" type="checkbox" value="checkbox"/>
+      </div>
+    </div>
+  </body>
+</html>
+    

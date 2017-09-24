@@ -1,0 +1,85 @@
+package com.weidian.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.weidian.dao.CartMapper;
+import com.weidian.pojo.Cart;
+import com.weidian.pojo.CartExample;
+import com.weidian.service.CartService;
+
+
+@Service
+public class CartServiceImpl implements CartService{
+	
+	@Autowired
+	CartMapper cartMapper;
+	
+
+	@Override
+	public int countByExample(CartExample example) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int deleteByExample(CartExample example) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	//购物车添加商品信息
+	public int insert(Cart record) {
+		
+		return cartMapper.insert(record);
+		
+	}
+
+	@Override
+	public int insertSelective(Cart record) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<Cart> selectByExample(CartExample example) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+//	@Override
+//	public int updateByExampleSelective(Cart record, CartExample example) {
+//		// TODO Auto-generated method stub
+//		return 0;
+//	}
+//
+//	@Override
+//	public int updateByExample(Cart record, CartExample example) {
+//		// TODO Auto-generated method stub
+//		return 0;
+//	}
+
+	@Override
+	public List<Cart> selectAll() {
+		// TODO Auto-generated method stub
+		return cartMapper.selectCartAll();
+	}
+
+	@Override
+	public String deleteByItemId(Long itemid) {
+		// TODO Auto-generated method stub
+		return cartMapper.deleteByItemId(itemid);
+	}
+
+	@Override
+	public String findCartByItemID(Long itemid) {
+		// TODO Auto-generated method stub
+		return cartMapper.findCartByItemID(itemid);
+	}
+
+	
+
+}

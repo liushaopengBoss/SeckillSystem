@@ -1,0 +1,47 @@
+package com.weidian.portal.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.weidian.pojo.Item;
+import com.weidian.service.ItemService;
+
+@Controller
+public class ItemController {
+
+	@Autowired
+	ItemService itemService;
+	
+	@RequestMapping("/init")
+	@ResponseBody
+	private String initData(){
+		
+		for(int i=1700000;i<3000000;i=i+1000){
+			itemService.initData(i);
+		}
+		
+		return "初始化成功";
+	}
+	
+	@RequestMapping("/index")
+	private String Items(@RequestParam(value="page" ,defaultValue="1")Integer page,Model model){
+		
+		List<Item> items = itemService.selectItemsByLimit(page-1);
+		int totalNum = itemService.itemCount();
+		//数据
+		model.addAttribute("items", items); 
+		//总共的页数
+		model.addAttribute("totalPages", (totalNum/30)+(totalNum%30==0?0:1));
+		//
+		model.addAttribute("startPage", page);
+		return "index";
+	}
+	
+	
+}
